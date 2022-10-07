@@ -153,9 +153,6 @@ def fileHandler(file_path):
         if ">" not in line:
             sequence = sequence + line.strip()
     
-    print(sequence)
-    
-    
     #Might contain typos, passing it through typoDetect
     typoDetect(sequence)
 
