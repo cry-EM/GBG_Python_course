@@ -11,6 +11,7 @@ import getopt, sys
 
 #To fetch URLs:
 import urllib.request
+import bs4
 
 #Lists for the naturally occurring protein forming amino acids with the number of H, C, N, O, S atoms they contain, respectively
 a = Ala = [7, 3, 1, 2, 0]
@@ -122,8 +123,13 @@ def fetcher(accession):
     #Compile URL
     url = "https://rest.uniprot.org/uniprotkb/{}.fasta".format(accession)
     
-    #Download file
-    fasta_sequence = urllib.request.urlopen(url)
+    #Download webpage ~fasta file
+    webpage = str(urllib.request.urlopen(url).read())
+    page = bs4.BeautifulSoup(webpage, features="html.parser")
+    
+    #Convert fasta to readable list
+    fasta_sequence = page.get_text()
+    fasta_sequence = fasta_sequence[2:-1].split("\\n")
     
     sequence = ""
     
