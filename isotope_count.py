@@ -167,9 +167,12 @@ def fileHandler(file_path):
 
 #No arguments are passed (=no sequence), show help
 def helper():
-    print ("Placeholder for help message")
-    print ("The help message is supposed to state the purpose of the program and list the arguments that can be used")
-    print ("It could probably be the same text as the readme file?")
+    print ("The script can be called with the following arguments:")
+    print ("")
+    print ("        -h, --help: Print a help message and exit")
+    print ("        -f, --file: Read the amino acid sequence from a file (fasta headers are ignored). Needs to be followed by an absolute file path.")
+    print ("        -a, --accession: Fetch the sequence from the UniProt database. Needs to be followed by a UniProt accession number.")
+    print ("        -s, --sequence: process the sequence passed in the command line. Needs to be followed by the sequence.")
 
 
 
