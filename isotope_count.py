@@ -14,26 +14,26 @@ import urllib.request
 import bs4
 
 #Lists for the naturally occurring protein forming amino acids with the number of H, C, N, O, S atoms they contain, respectively
-a = Ala = [7, 3, 1, 2, 0]
-c = Cys = [7, 3, 1, 2, 1]
-d = Asp = [6, 4, 1, 4, 0]
-e = Glu = [8, 5, 1, 4, 0]
-f = Phe = [11, 9, 1, 2, 0]
-g = Gly = [5, 2, 1, 2, 0]
-h = His = [9, 6, 3, 2, 0]
-i = Ile = [13, 6, 1, 2, 0]
-k = Lys = [15, 6, 2, 2, 0]
-l = Leu = [13, 6, 1, 2, 0]
-m = Met = [11, 5, 1, 2, 1]
-n = Asn = [8, 4, 2, 3, 0]
-p = Pro = [9, 5, 1, 2, 0]
-q = Gln = [10, 5, 2, 3, 0]
-r = Arg = [15, 6, 4, 2, 0]
-s = Ser = [7, 3, 1, 3, 0]
-t = Thr = [9, 4, 1, 3, 0]
-v = Val = [11, 5, 1, 2, 0]
-w = Trp = [15, 11, 2, 2, 0]
-y = Tyr = [11, 9, 1, 3, 0]
+a = [7, 3, 1, 2, 0]
+c = [7, 3, 1, 2, 1]
+d = [6, 4, 1, 4, 0]
+e = [8, 5, 1, 4, 0]
+f = [11, 9, 1, 2, 0]
+g = [5, 2, 1, 2, 0]
+h = [9, 6, 3, 2, 0]
+i = [13, 6, 1, 2, 0]
+k = [15, 6, 2, 2, 0]
+l = [13, 6, 1, 2, 0]
+m = [11, 5, 1, 2, 1]
+n = [8, 4, 2, 3, 0]
+p = [9, 5, 1, 2, 0]
+q = [10, 5, 2, 3, 0]
+r = [15, 6, 4, 2, 0]
+s = [7, 3, 1, 3, 0]
+t = [9, 4, 1, 3, 0]
+v = [11, 5, 1, 2, 0]
+w = [15, 11, 2, 2, 0]
+y = [11, 9, 1, 3, 0]
 
 #Lists of valid and invalid aa codes
 valid = ['a', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'y']
@@ -60,14 +60,14 @@ def main(sequence):
     for ii in valid:
         aa_count.append(sequence.count(ii))
         
-    #Array multiplication: number of each amino acid multiplied by the number of each atom in the amino acids, result is the number of the specified atoms
+    #Array multiplication: number of each amino acid multiplied by the number of each atom in the amino acids, result is the total count of the specified atoms
     for aa in valid:
         for atom in range(len(freq)):
-            #eval(aa)[atom] is the count of \atom in the variable named \aa
+            #eval(aa)[atom] is the count of atom in the variable aa
             #aa_count[valid.index(aa)] shows the element in aa_count corresponding to aa (without the need to make aa_count a dict)
             atom_count[atom] = atom_count[atom] + eval(aa)[atom] * aa_count[valid.index(aa)]
 
-    #Extraction of waters lost during condensation of amino acids, accounting for invalid amino acid letters
+    #Adjust for waters lost during condensation of amino acids, accounting for invalid amino acid letters
     valid_count = 0
     for val in valid:
         valid_count = valid_count + sequence.count(val)
@@ -100,7 +100,7 @@ def typoDetect(sequence):
     if not sequence.isalpha():
         #Sequence does not only contain letters
         print("Error: Invalid characters detected. Please check the input sequence.")
-        print("Exiting…")
+        print("Aborting...")
         
     elif any(x in sequence for x in invalid):
         #Sequence contains letters that are not amino acids
@@ -110,7 +110,7 @@ def typoDetect(sequence):
         if any(x in decision for x in confirmed):
             main(sequence)
         else:
-            print("Exiting…")
+            print("Aborting...")
     else:
         #Sequence is correct
         main(sequence)
@@ -123,7 +123,7 @@ def fetcher(accession):
     #Compile URL
     url = "https://rest.uniprot.org/uniprotkb/{}.fasta".format(accession)
     
-    #Download webpage ~fasta file
+    #Download webpage (~fasta file)
     webpage = str(urllib.request.urlopen(url).read())
     page = bs4.BeautifulSoup(webpage, features="html.parser")
     
@@ -149,7 +149,7 @@ def fetcher(accession):
 #Read sequence from file, handle headers and line breaks
 def fileHandler(file_path):
     
-    #open file
+    #Open file
     fasta_sequence = open (file_path, "r")
     
     sequence = ""
@@ -200,6 +200,7 @@ try:
         elif currentArgument in ("-s", "--sequence"):
             typoDetect(currentValue)
         
+        #This does not work, need to look into it
         else:
             print ("No arguments passed, displaying help screen")
             helper()
