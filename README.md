@@ -31,4 +31,9 @@ Examples:
 	A string with a typo:
 		MACPLEKALDVMVSTFHKYSGKEGDKFKLNKSELKELLTRELPSFLGKRTDEAAFQKLMSONLDSNRDNEVDFQEYCVFLSCIAMMCNEFFEGFPDKQPRKKB
 		Human S100A4 (Calcium binding protein)
-		Values: 8/0/0/0/0
+		Values: 8/0/0/0/0 (If you choose to run the script after the warning)
+
+	An invalid string:
+		1MILLIONANTS
+		No such peptide sequence exists
+		Values: none (The script aborts)
