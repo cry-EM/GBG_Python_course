@@ -54,6 +54,8 @@ long_options = ["help", "file=", "accession=", "sequence="]
 #The function that does the math stuff
 def main(sequence):
     
+    print ("Processing provided sequence...")
+    
     aa_count = []
     atom_count = [0, 0, 0, 0, 0]
     #Count how many of each amino acid the sequence contains
@@ -81,7 +83,6 @@ def main(sequence):
     isotope_count = [int(x) for x in isotope_count]
 
     #Print the results
-    print ("Processing provided sequence...")
     print("The expected number of isotopes in your sequence:")
     print("2H:", isotope_count[0])
     print("13C:", isotope_count[1])
@@ -218,3 +219,5 @@ except getopt.error as err:
 #argparse / sys.argv (this is simpler than argparse)
 #Change if-elif-else to switch
 #Simplify argument parsing: it can be done without getopt
+#Add error message when uniprot access is incorrect
+#Add requirements.txt since bs4 is not a standard library
